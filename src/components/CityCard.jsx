@@ -95,10 +95,10 @@ function CityCard() {
                 }}
                     className='object-cover bg-black '>
                     <SearchBar />
-                    <div className=' mx-10 mt-2 py-3  sm:mx-5 sm:py-2 md:mx-5  lg:mx-7   flex flex-col gap-5  bg-gradient-to-tr from-inherit to-transperent shadow-2xl shadow-black rounded-2xl '>
+                    <div className=' mx-10 mt-2 py-3  sm:mx-5 sm:py-2 md:mx-5  lg:mx-7 sm:gap-0  flex flex-col gap-5  bg-gradient-to-tr from-inherit to-transperent shadow-2xl shadow-black rounded-2xl '>
                         <div className='flex flex-col  text-white '>
-                            <div className='px-16 lg:px-7 flex flex-row items-center  justify-around sm:flex-col sm:justify-center md:flex-col  '>
-                                <div className=' flex flex-row  sm:gap-8 gap-20 lg:gap-16 md:gap-7'>
+                            <div className='px-16 lg:px-7 flex flex-row items-center  justify-around  sm:flex-col sm:justify-center md:flex-col  '>
+                                <div className=' flex flex-row  sm:gap-4  gap-20 lg:gap-16 md:gap-7'>
                                     <div className='flex flex-col items-center justify-center lg:pt-5 '>
                                         <h1 className='text-4xl lg:text-2xl md:text-xl sm:text-lg'>{location.state.city}</h1>
 
@@ -163,7 +163,7 @@ function CityCard() {
                             </div>
                         </div>
                         {/* Hourly forecast */}
-                        <div className=' py-4 mx-5   flex flex-col items-center gap-3 justify-center md:py-2  text-white    rounded-xl '>
+                        <div className=' py-4 mx-5   flex flex-col items-center gap-3 justify-center md:py-2 sm:py-2 text-white    rounded-xl '>
 
                             <h2 className=' text-lg sm:text-sm md:text-base font-semibold sm:pb-2 md:pb-4 lg:pb-7'>Hourly Forecast</h2>
 
