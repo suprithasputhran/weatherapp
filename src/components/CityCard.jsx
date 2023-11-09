@@ -95,7 +95,7 @@ function CityCard() {
                 }}
                     className='object-cover bg-black '>
                     <SearchBar />
-                    <div className=' mx-10 mt-2 py-3 sm:mt-10 sm:mx-5 sm:py-6 md:mx-5 md:mt-5 lg:mx-7 lg:mt-5  flex flex-col gap-5  bg-gradient-to-tr from-inherit to-transperent shadow-2xl shadow-black rounded-2xl '>
+                    <div className=' mx-10 mt-2 py-3 sm:mt-1 sm:mx-5 sm:py-2 md:mx-5 md:mt-5 lg:mx-7 lg:mt-5  flex flex-col gap-5  bg-gradient-to-tr from-inherit to-transperent shadow-2xl shadow-black rounded-2xl '>
                         <div className='flex flex-col  text-white '>
                             <div className='px-16 lg:px-7 flex flex-row items-center  justify-around sm:flex-col sm:justify-center md:flex-col  '>
                                 <div className='md:pt-3 flex flex-row  sm:flex-col sm:gap-5 gap-20 lg:gap-16 md:gap-7'>
@@ -116,7 +116,7 @@ function CityCard() {
                                             })}</span>}
 
                                         <div className='flex flex-col  items-center justify-center'>
-                                            {weatherData.current && <span className=' pb-1 px-4 '><img className='w-[80px] h-auto lg:w-[60px] sm:w-[40px] md:w-[50px] ' src={weatherData.current.condition.icon} /></span>}
+                                            {weatherData.current && <span className=' pb-1 px-4  '><img className='w-[80px] h-auto lg:w-[60px] sm:w-[40px] md:w-[50px] ' src={weatherData.current.condition.icon} /></span>}
                                             {weatherData.current && <span className='text-base pt-2 sm:pt-0 md:pt-0 sm:text-xs md:text-sm '>{weatherData.current.condition.text}</span>}
 
                                         </div>
@@ -129,9 +129,9 @@ function CityCard() {
                                 </div>
                                 {/* 3 Days Forecast  */}
 
-                                <div className='py-3  px-5 lg:px-2 flex flex-col items-center justify-center gap-3  text-white  sm:pt-6  md:pt-3  rounded-xl '>
+                                <div className='py-3  px-5 lg:px-2 flex flex-col items-center justify-center gap-3  text-white sm:pt-5    md:pt-3  rounded-xl '>
 
-                                    <h2 className=' text-lg font-semibold sm:text-sm md:text-base sm:pb-5 md:pb-4'>3 Day Forecast</h2>
+                                    <h2 className=' text-lg font-semibold sm:text-sm md:text-base sm:pb-2 md:pb-4'>3 Day Forecast</h2>
                                     <div className='flex flex-row gap-6 md:gap-4 '>
                                         {weatherData.forecast && weatherData.forecast.forecastday.map((dayData, id) => {
                                             return (
@@ -165,7 +165,7 @@ function CityCard() {
                         {/* Hourly forecast */}
                         <div className=' py-4 mx-5   flex flex-col items-center gap-3 justify-center md:py-2  text-white    rounded-xl '>
 
-                            <h2 className=' text-lg sm:text-sm md:text-base font-semibold sm:pb-5 md:pb-4 lg:pb-7'>Hourly Forecast</h2>
+                            <h2 className=' text-lg sm:text-sm md:text-base font-semibold sm:pb-2 md:pb-4 lg:pb-7'>Hourly Forecast</h2>
 
                             <div className=' flex flex-row flex-wrap items-center justify-center gap-6   md:gap-1 sm:gap-2'>{weatherData.forecast && weatherData.forecast
                                 .forecastday[0].hour.map((mappedData, id) => {
