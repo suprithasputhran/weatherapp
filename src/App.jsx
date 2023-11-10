@@ -4,6 +4,7 @@ import './main.css'
 import CityCard from './components/CityCard';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CurrentLocation from './components/CurrentLocation';
 
 function App() {
 
@@ -23,21 +24,14 @@ function App() {
 
 
           <Routes>
-            <Route path="/" element={<SearchBar />} />
+            <Route path="/" element={<CurrentLocation />} />
             <Route path="/citycard" element={<CityCard />} />
           </Routes>
         </Router>
+        {/* <CityCard /> */}
+        {/* <CurrentLocation /> */}
 
       </div>
-      {/* <CityCard />
-
-      {/* <HourlyForecast />
-      */}
-      {/* <Routes>
-          <Route path="/citycard" element={<CityCard />} />
-
-        </Routes> */}
-      {/* <DailyForcast /> */}
     </div>
   )
 }

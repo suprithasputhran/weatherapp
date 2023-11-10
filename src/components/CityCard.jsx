@@ -3,9 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios';
 import partlyCloudy from '../assets/rainning.avif';
-
-
-
 import '../assets/style.css';
 import Loader from './Loader';
 import SearchBar from './SearchBar';
@@ -79,7 +76,9 @@ function CityCard() {
     }, [location.state.city])
 
 
-
+    const handleBodyClick = (syntheticEvent) => {
+        console.log('body click');
+    }
 
     return (
         <main className='bg-inherit w-full h-screen'>
@@ -95,7 +94,8 @@ function CityCard() {
                 }}
                     className='object-cover bg-black '>
                     <SearchBar />
-                    <div className=' mx-10 mt-2 py-3  sm:mx-5 sm:py-2 md:mx-5  lg:mx-7 sm:gap-0  flex flex-col gap-5  bg-gradient-to-tr from-inherit to-transperent shadow-2xl shadow-black rounded-2xl '>
+
+                    <div onClick={handleBodyClick} className={`mx-10 mt-2 py-3  sm:mx-5 sm:py-2 md:mx-5  lg:mx-7 sm:gap-0  flex flex-col gap-5  bg-gradient-to-tr from-inherit to-transperent shadow-2xl shadow-black rounded-2xl`}>
                         <div className='flex flex-col  text-white '>
                             <div className='px-16 lg:px-7 flex flex-row items-center  justify-around  sm:flex-col sm:justify-center md:flex-col  '>
                                 <div className=' flex flex-row  sm:gap-4  gap-20 lg:gap-16 md:gap-7'>

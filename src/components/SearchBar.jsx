@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import partlyCloudy from '../assets/rainning.avif';
 import { useNavigate } from 'react-router-dom';
 import useDebounce from '../hooks/useDebounce';
 function SearchBar() {
@@ -13,8 +14,6 @@ function SearchBar() {
 
     const navigate = useNavigate();
     const previewCity = (weatherdata) => {
-
-        const state = weatherdata.region;
         const city = weatherdata.name;
         const lat = weatherdata.lat;
         const lon = weatherdata.lon;
@@ -31,36 +30,40 @@ function SearchBar() {
 
 
     }
-    useEffect((searchQuery) => {
+    useEffect(() => {
+
         getWeather(searchQuery);
+
+
     }, [debouncedSearchQuery])
     const getWeather = async (searchQuery) => {
 
-        if (searchQuery !== "") {
-            try {
-                await axios.get(`https://api.weatherapi.com/v1/search.json?q=${searchQuery}&key=${apiKey}`)
-                    .then(result => {
-                        console.log(result.data);
-                        setWeatherData(result.data);
-                    })
+
+        try {
+            await axios.get(`https://api.weatherapi.com/v1/search.json?q=${searchQuery}&key=${apiKey}`)
+                .then(result => {
+                    console.log(result.data);
+                    setWeatherData(result.data);
+                })
 
 
-            }
-            catch (error) {
-                console.log(error);
-                setSearchError(true);
-                // if (error.response) {
-                //     console.log('Server responded with status code:', error.response.status);
-                //     console.log('Response data:', error.response.data);
-                // } else if (error.request) {
-                //     console.log('No response received:', error.request);
-                // } else {
-                //     console.log('Error creating request:', error.message);
-                // }
-            }
-            return;
         }
+        catch (error) {
+            console.log(error);
+            setSearchError(true);
+            // if (error.response) {
+            //     console.log('Server responded with status code:', error.response.status);
+            //     console.log('Response data:', error.response.data);
+            // } else if (error.request) {
+            //     console.log('No response received:', error.request);
+            // } else {
+            //     console.log('Error creating request:', error.message);
+            // }
+        }
+
+
     }
+
 
     const handleInputChange = (event) => {
         let searchQuery = event.target.value;
@@ -72,9 +75,10 @@ function SearchBar() {
     const handleClick = () => { setSearchQuery('') }
 
     return (
-        <div className=' pt-7 mx-0 flex items-center justify-center '>
-            <div>
-                <div className='flex  bg-white w-[900px] sm:w-[300px] md:w-[375px] lg:w-[700px] items-center justify-between  rounded-xl shadow-2xl shadow-black' >
+        <div className=' pt-7 mx-0 flex flex-col items-center justify-center '  >
+            <div >
+
+                <div className='flex bg-white w-[900px] sm:w-[300px] md:w-[375px] lg:w-[700px] items-center justify-between  rounded-xl shadow-2xl shadow-black' >
                     <input type="text" value={searchQuery} onChange={handleInputChange} placeholder="Search for city or state"
                         className="  px-6 py-3 w-[850px] sm:px-4 sm:py-2  sm:w-[275px] md:w-[350px] lg:w-[700px] rounded-xl sm:text-sm md:text-base lg:text-normal text-lg focus:outline-none placeholder:text-black" />
                     {searchQuery ? <button type="submit" className='  w-[50px] sm:w-[25px] rounded-r-xl cursor-pointer' onClick={handleClick} > <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-x-lg" viewBox="0 0 16 16">
@@ -84,19 +88,23 @@ function SearchBar() {
                     </svg></button>
                     }
                 </div>
-                {searchQuery ? <div> {weatherData && <ul className='absolute w-[900px] sm:w-[300px] md:w-[375px] lg:w-[700px] px-5  mt-2  text-black text-lg lg:text-normal sm:text-sm md:text-base bg-white rounded-xl  placeholder:text-black'>
-                    {
-                        weatherData.map((weatherdata, index) => {
-                            return (
-                                <div key={index} className=' z-50'>
-                                    <li className="py-3 sm:py-2 cursor-pointer list-none  " >
-                                        <p className="cursor-pointer" onClick={() => previewCity(weatherdata)} >{weatherdata.name},&nbsp;{weatherdata.region},&nbsp;{weatherdata.country} </p>
-                                    </li>
+                {
+                    searchQuery ? <div > {weatherData && <ul className='absolute w-[900px] sm:w-[300px] md:w-[375px] lg:w-[700px] px-5  mt-2  text-black text-lg lg:text-normal sm:text-sm md:text-base bg-white rounded-xl  placeholder:text-black'>
+                        {
+                            weatherData.map((weatherdata, index) => {
+                                return (
+                                    <div key={index} className=' z-50'>
+                                        <li className="py-3 sm:py-2 cursor-pointer list-none  " >
+                                            <p className="cursor-pointer" onClick={() => previewCity(weatherdata)} >{weatherdata.name},&nbsp;{weatherdata.region},&nbsp;{weatherdata.country} </p>
+                                        </li>
 
-                                </div>
-                            )
-                        })}
-                </ul>}</div> : <div></div>}
+                                    </div>
+                                )
+                            })}
+                    </ul>}</div> : <div>
+                    </div>
+                }
+
             </div>
 
         </div >
