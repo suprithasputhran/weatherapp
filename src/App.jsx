@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
-import SearchBar from './components/SearchBar'
 import './main.css'
 import CityCard from './components/CityCard';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CurrentLocation from './components/CurrentLocation';
+import SearchBar from './components/SearchBar';
 
 function App() {
 
@@ -19,9 +18,9 @@ function App() {
         backgroundPosition: 'center',
         height: '100vh'
 
-      }} className=' relative bg-black object-cover h-screen bg-blend-lighten'>
+      }} className=' relative bg-transperent object-cover h-screen bg-blend-lighten'>
         <Router>
-
+          <SearchBar />
 
           <Routes>
             <Route path="/" element={<CurrentLocation />} />

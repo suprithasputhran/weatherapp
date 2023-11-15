@@ -1,16 +1,35 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-
-import SearchBar from './SearchBar';
 import { useLocation } from 'react-router-dom';
+import Loader from './Loader';
+import partlyCloudy from '../assets/partlycloudy.jpg';
+import clear from '../assets/clear.jpg'
+import sunny from '../assets/sunny.jpg';
+import lightrain from '../assets/heavyrain.jpg'
+import heavyrain from '../assets/heavyrainshower.jpg'
+import lightsnow from '../assets/snow.png'
+import heavysnow from '../assets/heavysnow.jpg'
+import lightsleet from '../assets/sleet.avif'
+import icepellets from '../assets/icepellets.jpg'
+import fog from '../assets/foggy.jpg'
+import blizzard from '../assets/blizzard.jpg'
+import mist from '../assets/mist.jpg'
+import overcast from '../assets/overcast.webp'
+import cloudy from '../assets/cloudy.avif'
+import thunderrain from '../assets/StormCloud.jpg'
+import thundersnow from '../assets/thundersnow.jpg'
+import drizzel from '../assets/drizzel.jpg'
+import heavydrizzel from '../assets/freezingdrizzle.jpeg'
+import thundery from '../assets/thunder.jpg'
+import blowingsnow from '../assets/blowingsnow.jpeg'
+
 function CurrentLocation() {
     const [lat, setLat] = useState([]);
     const [long, setLong] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [bgImage, setBgImage] = useState('');
 
     const [currentWeatherData, setCurrentWeatherData] = useState({});
-    const handleBodyClick = (syntheticEvent) => {
-        console.log('body click');
-    }
     const location = useLocation();
     console.log(location)
     const fetchData = async () => {
@@ -25,7 +44,72 @@ function CurrentLocation() {
             });
             const result = await axios.get(`https://api.weatherapi.com/v1/forecast.json?q=${lat},${long}&days=14&key=${import.meta.env.VITE_API_KEY}`);
             console.log(result.data);
+            const code = result.data.current.condition.code;
+            const text = result.data.current.condition.text;
+
+            if (code === 1000 && text === 'Sunny') {
+                setBgImage(sunny);
+            }
+            else if (code === 1000 && text === 'Clear') {
+                setBgImage(clear);
+            }
+            else if (code === 1003) {
+                setBgImage(partlyCloudy);
+
+            }
+            else if (code === 1006) {
+                setBgImage(cloudy);
+
+            }
+            else if (code === 1030) {
+                setBgImage(mist);
+            }
+            else if (code === 1009) {
+                setBgImage(overcast);
+            }
+            else if (code === 1114) {
+                setBgImage(blowingsnow);
+            } else if (code === 1117) {
+                setBgImage(blizzard);
+
+            } else if (code === 1087) {
+                setBgImage(thundery);
+
+            }
+            else if (code === 1135 || code === 1147) {
+                setBgImage(fog);
+            } else if (code === 1063 || code === 1180 || code === 1183 || code === 1186 || code === 1189 || code === 1171 || code === 1180 || code === 1183 || code === 1186 || code === 1189 || code === 1192 || code === 1195 || code === 1198
+                || code === 1201 || code === 1240 || code === 1243) {
+                setBgImage(lightrain);
+            }
+            else if (code === 1192 || code === 1195 || code === 1246) {
+                setBgImage(heavyrain);
+            }
+            else if (code === 1066 || code === 1072 || code === 1213 || code === 1216
+                || code === 1219 || code === 1255) {
+                setBgImage(lightsnow);
+            } else if (code === 1222 || code === 1225 || code === 1258) {
+                setBgImage(heavysnow);
+            } else if (code === 1237 || code === 1261 || code === 1264) {
+                setBgImage(icepellets);
+            }
+            else if (code === 1069 || code === 1204 || code === 1207 || code === 1249 || code === 1252) {
+                setBgImage(lightsleet);
+            }
+            else if (code === 1072 || code === 1150 || code === 1153 || code === 1168) {
+                setBgImage(drizzel);
+            }
+            else if (code === 1171 || code === 1171) {
+                setBgImage(heavydrizzel);
+            }
+            else if (code === 1273 || code === 1276) {
+                setBgImage(thunderrain);
+            }
+            else if (code === 1279 || code === 1282) {
+                setBgImage(thundersnow);
+            }
             setCurrentWeatherData(result.data);
+            setLoading(false);
 
         }
         catch (err) {
@@ -34,27 +118,31 @@ function CurrentLocation() {
         }
     }
     useEffect(() => {
+        const timer = setTimeout(() => {
+            fetchData();
+        }, 400)
+        return () => {
+            clearTimeout(timer);
+        }
 
-        fetchData();
     }, [lat, long])
 
 
     return (
-        <main className='bg-inherit w-full h-screen inset-0'>
+        <main className=' h-screen inset-0'>
 
-            <div style={{
-                backgroundImage: `url()`,
+            {loading ? <div><Loader /></div> : <div style={{
+                backgroundImage: `url(${bgImage})`,
 
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
                 height: '100vh',
             }}
-                className='object-cover bg-black '>
-                <SearchBar />
-                <div onClick={handleBodyClick} className={`mx-10 mt-2 py-3  sm:mx-5 sm:py-2 md:mx-5  lg:mx-7 sm:gap-0  flex flex-col gap-5  bg-gradient-to-tr from-inherit to-transperent shadow-2xl shadow-black rounded-2xl`}>
+                className='object-cover bg-black py-24 sm:py-[71px] '>
+                <div className={`mx-10  py-2  sm:mx-5 sm:py-2 md:mx-5  lg:mx-7 sm:gap-0  flex flex-col gap-5  bg-gradient-to-tr from-inherit to-transperent shadow-2xl shadow-black rounded-2xl`}>
                     <div className='flex flex-col  text-white '>
-                        <div className='px-16 lg:px-7 flex flex-row items-center  justify-around  sm:flex-col sm:justify-center md:flex-col  '>
+                        <div className='px-16 lg:px-7 flex  flex-row items-center  justify-around  sm:flex-col sm:justify-center md:flex-col  '>
                             <div className=' flex flex-row  sm:gap-4  gap-20 lg:gap-16 md:gap-7'>
                                 <div className='flex flex-col items-center justify-center lg:pt-5 '>
                                     {currentWeatherData.location && <h1 className='text-4xl lg:text-2xl md:text-xl sm:text-lg'>{currentWeatherData.location.name}</h1>}
@@ -152,7 +240,7 @@ function CurrentLocation() {
 
             </div>
 
-
+            }
         </main>
     )
 }

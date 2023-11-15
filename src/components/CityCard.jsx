@@ -2,10 +2,30 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios';
-import partlyCloudy from '../assets/rainning.avif';
 import '../assets/style.css';
 import Loader from './Loader';
-import SearchBar from './SearchBar';
+import partlyCloudy from '../assets/partlycloudy.jpg';
+import clear from '../assets/clear.jpg'
+import sunny from '../assets/sunny.jpg';
+import lightrain from '../assets/heavyrain.jpg'
+import heavyrain from '../assets/heavyrainshower.jpg'
+import lightsnow from '../assets/snow.png'
+import heavysnow from '../assets/heavysnow.jpg'
+import lightsleet from '../assets/sleet.avif'
+import icepellets from '../assets/icepellets.jpg'
+import fog from '../assets/foggy.jpg'
+import blizzard from '../assets/blizzard.jpg'
+import mist from '../assets/mist.jpg'
+import overcast from '../assets/overcast.webp'
+import cloudy from '../assets/cloudy.avif'
+import thunderrain from '../assets/StormCloud.jpg'
+import thundersnow from '../assets/thundersnow.jpg'
+import drizzel from '../assets/drizzel.jpg'
+import heavydrizzel from '../assets/freezingdrizzle.jpeg'
+import thundery from '../assets/thunder.jpg'
+import blowingsnow from '../assets/blowingsnow.jpeg'
+
+
 
 function CityCard() {
     const location = useLocation();
@@ -32,34 +52,67 @@ function CityCard() {
                 const text = result.data.current.condition.text;
 
                 if (code === 1000 && text === 'Sunny') {
-                    setBgImage();
+                    setBgImage(sunny);
                 }
                 else if (code === 1000 && text === 'Clear') {
-                    setBgImage();
+                    setBgImage(clear);
                 }
                 else if (code === 1003) {
                     setBgImage(partlyCloudy);
 
                 }
                 else if (code === 1006) {
-                    setBgImage(partlyCloudy);
+                    setBgImage(cloudy);
 
                 }
                 else if (code === 1030) {
-                    setBgImage();
+                    setBgImage(mist);
                 }
                 else if (code === 1009) {
-                    setBgImage();
+                    setBgImage(overcast);
                 }
-                else if (code >= 1063 && code <= 1210) {
-                    setBgImage();
+                else if (code === 1114) {
+                    setBgImage(blowingsnow);
+                } else if (code === 1117) {
+                    setBgImage(blizzard);
+
+                } else if (code === 1087) {
+                    setBgImage(thundery);
+
+                }
+                else if (code === 1135 || code === 1147) {
+                    setBgImage(fog);
+                } else if (code === 1063 || code === 1180 || code === 1183 || code === 1186 || code === 1189 || code === 1171 || code === 1180 || code === 1183 || code === 1186 || code === 1189 || code === 1192 || code === 1195 || code === 1198
+                    || code === 1201 || code === 1240 || code === 1243) {
+                    setBgImage(lightrain);
+                }
+                else if (code === 1192 || code === 1195 || code === 1246) {
+                    setBgImage(heavyrain);
+                }
+                else if (code === 1066 || code === 1072 || code === 1213 || code === 1216
+                    || code === 1219 || code === 1255) {
+                    setBgImage(lightsnow);
+                } else if (code === 1222 || code === 1225 || code === 1258) {
+                    setBgImage(heavysnow);
+                } else if (code === 1237 || code === 1261 || code === 1264) {
+                    setBgImage(icepellets);
+                }
+                else if (code === 1069 || code === 1204 || code === 1207 || code === 1249 || code === 1252) {
+                    setBgImage(lightsleet);
+                }
+                else if (code === 1072 || code === 1150 || code === 1153 || code === 1168) {
+                    setBgImage(drizzel);
+                }
+                else if (code === 1171 || code === 1171) {
+                    setBgImage(heavydrizzel);
+                }
+                else if (code === 1273 || code === 1276) {
+                    setBgImage(thunderrain);
+                }
+                else if (code === 1279 || code === 1282) {
+                    setBgImage(thundersnow);
                 }
                 setWeatherData(result.data);
-                console.log(code);
-                console.log(text);
-
-
-
                 setLoading(false);
             } catch (err) {
                 console.log(err)
@@ -76,9 +129,7 @@ function CityCard() {
     }, [location.state.city])
 
 
-    const handleBodyClick = (syntheticEvent) => {
-        console.log('body click');
-    }
+
 
     return (
         <main className='bg-inherit w-full h-screen'>
@@ -92,10 +143,10 @@ function CityCard() {
                     backgroundPosition: 'center',
                     height: '100vh',
                 }}
-                    className='object-cover bg-black '>
-                    <SearchBar />
+                    className='object-cover bg-black py-24 sm:py-[71px] '>
 
-                    <div onClick={handleBodyClick} className={`mx-10 mt-2 py-3  sm:mx-5 sm:py-2 md:mx-5  lg:mx-7 sm:gap-0  flex flex-col gap-5  bg-gradient-to-tr from-inherit to-transperent shadow-2xl shadow-black rounded-2xl`}>
+
+                    <div className={`mx-10  py-2  sm:mx-5 sm:py-2 md:mx-5  lg:mx-7 sm:gap-0  flex flex-col gap-5  bg-gradient-to-tr from-inherit to-transperent shadow-2xl shadow-black rounded-2xl`}>
                         <div className='flex flex-col  text-white '>
                             <div className='px-16 lg:px-7 flex flex-row items-center  justify-around  sm:flex-col sm:justify-center md:flex-col  '>
                                 <div className=' flex flex-row  sm:gap-4  gap-20 lg:gap-16 md:gap-7'>
